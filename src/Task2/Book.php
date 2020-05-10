@@ -8,16 +8,16 @@ class Book
 {
     public function getTitle(): string
     {
-        // @todo
+        return $this->title;
     }
 
     public function getPrice(): int
     {
-        // @todo
+        return $this->price;
     }
 
     public function getPagesNumber(): int
     {
-        //@todo
+        return $this->pagesNumber;
     }
 }

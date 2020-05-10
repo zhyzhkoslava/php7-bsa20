@@ -40,7 +40,6 @@ class Car
 
     /**
      * Get car id.
-     *
      * @return int
      */
     public function getId(): int
@@ -50,7 +49,6 @@ class Car
 
     /**
      * Get car image
-     *
      * @return string
      */
     public function getImage(): string
@@ -60,7 +58,6 @@ class Car
 
     /**
      * Get car name
-     *
      * @return string
      */
     public function getName(): string
@@ -70,7 +67,6 @@ class Car
 
     /**
      * Get car speed
-     *
      * @return int
      */
     public function getSpeed(): int
@@ -80,7 +76,6 @@ class Car
 
     /**
      * Get car pitStopTime
-     *
      * @return int
      */
     public function getPitStopTime(): int
@@ -90,7 +85,6 @@ class Car
 
     /**
      * Get car fuelConsumption
-     *
      * @return float
      */
     public function getFuelConsumption(): float
@@ -100,7 +94,6 @@ class Car
 
     /**
      * Get car fuelTankVolume
-     *
      * @return float
      */
     public function getFuelTankVolume(): float
@@ -108,7 +101,3 @@ class Car
         return $this->fuelTankVolume;
     }
 }
-
-//$bmw = new Car(1, "https://pbs.twimg.com/profile_images/595409436585361408/aFJGRaO6_400x400.jpg", "BMW", 220, 5, 25, 60);
-//$tesla = new Car(2, "https://i.pinimg.com/originals/e4/15/83/e41583f55444b931f4ba2f0f8bce1970.jpg", "Tesla", 200, 15, 10, 100);
-//$ford = new Car(3, "https://fordsalomao.com.br/wp-content/uploads/2019/02/1499441577430-1-1024x542-256x256.jpg", "Ford", 180, 10, 18, 65);

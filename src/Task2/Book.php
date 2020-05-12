@@ -9,6 +9,10 @@ namespace App\Task2;
  */
 class Book
 {
+    protected string $title;
+    protected int $price;
+    protected int $pagesNumber;
+
     /**
      * Book constructor.
      * @param string $title
@@ -21,9 +25,9 @@ class Book
         int $pagesNumber
     )
     {
-        $this->title = $title;
-        $this->price = $price;
-        $this->pagesNumber = $pagesNumber;
+        $this->setTitle($title);
+        $this->setPrice($price);
+        $this->setPagesNumber($pagesNumber);
     }
 
     /** Get title of the book
@@ -34,6 +38,18 @@ class Book
         return $this->title;
     }
 
+    /** Set Title value
+     * @param $title
+     */
+    public function setTitle($title)
+    {
+        if ($title == '') {
+            throw new \Exception('Invalid title value! Empty title!');
+        } else {
+            $this->title = trim($title);
+        }
+    }
+
     /** Get ptice of the book
      * @return int
      */
@@ -42,11 +58,36 @@ class Book
         return $this->price;
     }
 
+    /** Set price value
+     * @param $price
+     */
+    public function setPrice($price)
+    {
+        if ($price <= 0) {
+            throw new \Exception('Invalid price value! Price must be greater than 0');
+        } else {
+            $this->price = $price;
+        }
+    }
+
     /** Get getPagesNumber of the book
      * @return int
      */
     public function getPagesNumber(): int
     {
         return $this->pagesNumber;
+    }
+
+    /** Set pagesNumber value
+     * @param $pagesNumber
+     */
+    public function setPagesNumber($pagesNumber)
+    {
+        if ($pagesNumber <= 0) {
+            throw new \Exception('Invalid pagesNumber value! pagesNumber must be greater than 0');
+        } else {
+            $this->pagesNumber = $pagesNumber;
+        }
+
     }
 }

@@ -32,10 +32,11 @@ class Car
         $this->id = $id;
         $this->image = $image;
         $this->name = $name;
-        $this->speed = $speed;
-        $this->pitStopTime = $pitStopTime;
-        $this->fuelConsumption = $fuelConsumption;
-        $this->fuelTankVolume = $fuelTankVolume;
+
+        $this->setSpeed($speed);
+        $this->setPitStopTime($pitStopTime);
+        $this->setFuelConsumption($fuelConsumption);
+        $this->setFuelTankVolume($fuelTankVolume);
     }
 
     /**
@@ -99,5 +100,42 @@ class Car
     public function getFuelTankVolume(): float
     {
         return $this->fuelTankVolume;
+    }
+
+    /** Set speed param and check it
+     * @param $speed
+     * @throws \Exception
+     */
+    public function setSpeed($speed)
+    {
+        if ($speed <= 0) {
+            throw new \Exception('Invalid Speed value! Speed must be greater than 0');
+        } else {
+            $this->speed = $speed;
+        }
+    }
+    public function setPitStopTime($pitStopTime)
+    {
+        if ($pitStopTime <= 0) {
+            throw new \Exception('Invalid pitStopTime value! pitStopTime must be greater than 0');
+        } else {
+            $this->pitStopTime = $pitStopTime;
+        }
+    }
+    public function setFuelConsumption($fuelConsumption)
+    {
+        if ($fuelConsumption <= 0) {
+            throw new \Exception('Invalid fuelConsumption value! fuelConsumption must be greater than 0');
+        } else {
+            $this->fuelConsumption = $fuelConsumption;
+        }
+    }
+    public function setFuelTankVolume($fuelTankVolume)
+    {
+        if ($fuelTankVolume <= 0) {
+            throw new \Exception('Invalid fuelTankVolume value! fuelTankVolume must be greater than 0');
+        } else {
+            $this->fuelTankVolume = $fuelTankVolume;
+        }
     }
 }

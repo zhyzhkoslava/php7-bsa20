@@ -9,10 +9,10 @@ namespace App\Task2;
  */
 class BooksGenerator
 {
-    public array $libraryBooks = [];
-    public int $minPagesNumber;
-    public array $storeBooks = [];
-    public int $maxPrice;
+    protected array $libraryBooks = [];
+    protected int $minPagesNumber;
+    protected array $storeBooks = [];
+    protected int $maxPrice;
 
     /**
      * BooksGenerator constructor.
@@ -29,13 +29,39 @@ class BooksGenerator
         array $storeBooks
     )
     {
-        $this->minPagesNumber = $minPagesNumber;
+        $this->setMinPagesNumber($minPagesNumber);
         $this->libraryBooks = $libraryBooks;
         $this->storeBooks = $storeBooks;
-        $this->maxPrice = $maxPrice;
+        $this->setMaxPrice($maxPrice);
     }
 
-    /** Filter and return data
+    /**
+     * @param $minPagesNumber
+     * @throws \Exception
+     */
+    public function setMinPagesNumber($minPagesNumber)
+    {
+        if ($minPagesNumber <= 0) {
+            throw new \Exception('Invalid minPagesNumber value! minPagesNumber must be greater than 0');
+        } else {
+            $this->pitStopTime = $minPagesNumber;
+        }
+    }
+
+    /**
+     * @param $maxPrice
+     * @throws \Exception
+     */
+    public function setMaxPrice($maxPrice)
+    {
+        if ($maxPrice <= 0) {
+            throw new \Exception('Invalid MaxPrice value! MaxPrice must be greater than 0');
+        } else {
+            $this->maxPrice = $maxPrice;
+        }
+    }
+
+    /** Filter and generate data
      * @return \Generator
      */
     public function generate(): \Generator

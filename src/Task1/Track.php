@@ -13,17 +13,20 @@ class Track
      * Array of Car object
      * @var Car[]
      */
-    public array $cars = [];
+    protected array $cars = [];
+    protected float $lapLength;
+    protected int $lapsNumber;
 
     /**
      * Track constructor.
      * @param float $lapLength
      * @param int $lapsNumber
+     * @throws \Exception
      */
     public function __construct(float $lapLength, int $lapsNumber)
     {
-        $this->lapLength = $lapLength;
-        $this->lapsNumber = $lapsNumber;
+        $this->setLapLength($lapLength);
+        $this->setLapsNumber($lapsNumber);
     }
 
     /**
@@ -36,12 +39,38 @@ class Track
     }
 
     /**
+     * @param $lapLength
+     * @throws \Exception
+     */
+    public function setLapLength($lapLength)
+    {
+        if ($lapLength <= 0) {
+            throw new \Exception('Invalid lapLength value! lapLength must be greater than 0');
+        } else {
+            $this->lapLength = $lapLength;
+        }
+    }
+
+    /**
      * Get LapsNumber
      * @return int
      */
     public function getLapsNumber(): int
     {
         return $this->lapsNumber;
+    }
+
+    /**
+     * @param $lapsNumber
+     * @throws \Exception
+     */
+    public function setLapsNumber($lapsNumber)
+    {
+        if ($lapsNumber <= 0) {
+            throw new \Exception('Invalid lapsNumber value! lapsNumber must be greater than 0');
+        } else {
+            $this->lapsNumber = $lapsNumber;
+        }
     }
 
     /**
@@ -71,26 +100,30 @@ class Track
         $timeOfEachCar = [];
         $cars = $this->all();
 
-        foreach ($cars as $car) {
+        if (empty($cars)) {
+            throw new \Exception('Need to add at least 1 car!');
+        } else {
+            foreach ($cars as $car) {
 
-            $car_speed = $car->getSpeed();
-            $pitStopTime = $car->getPitStopTime();
-            $fuelConsumption = $car->getFuelConsumption();
-            $fuelTankVolume = $car->getFuelTankVolume();
-            $allWay = $this->lapLength * $this->lapsNumber;
-            $kmConsumption = 100;
+                $car_speed = $car->getSpeed();
+                $pitStopTime = $car->getPitStopTime();
+                $fuelConsumption = $car->getFuelConsumption();
+                $fuelTankVolume = $car->getFuelTankVolume();
+                $allWay = $this->lapLength * $this->lapsNumber;
+                $kmConsumption = 100;
 
-            // Calculate all time on Track in seconds of each Car
-            $timeOnTrack = ($allWay / $kmConsumption) * ($kmConsumption / $car_speed) * 60 * 60;
-            // Calculate all pitStops of each Car
-            $pitStops = (($allWay / $kmConsumption) * $fuelConsumption) / $fuelTankVolume;
-            // Calculate time on all pitStops
-            $timeOnPitStop = $pitStops * $pitStopTime;
-            // Calculate all time of each car on track with pitStops
-            $allSpentSeconds = $timeOnTrack + $timeOnPitStop;
-            // Add time of each car add to array
-            $timeOfEachCar[] = $allSpentSeconds;
+                // Calculate all time on Track in seconds of each Car
+                $timeOnTrack = ($allWay / $kmConsumption) * ($kmConsumption / $car_speed) * 60 * 60;
+                // Calculate all pitStops of each Car
+                $pitStops = (($allWay / $kmConsumption) * $fuelConsumption) / $fuelTankVolume;
+                // Calculate time on all pitStops
+                $timeOnPitStop = $pitStops * $pitStopTime;
+                // Calculate all time of each car on track with pitStops
+                $allSpentSeconds = $timeOnTrack + $timeOnPitStop;
+                // Add time of each car add to array
+                $timeOfEachCar[] = $allSpentSeconds;
 
+            }
         }
 
         return $this->all()[array_search(min($timeOfEachCar), $timeOfEachCar)];
